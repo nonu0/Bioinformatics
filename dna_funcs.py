@@ -8,16 +8,19 @@ def validate_seq(seq):
             return False
     return temp_seq
 
+
+#counts the frequency of each nucleotide
 def CountFreq(seq):
     temp_data = {'A':0,'C':0,'G':0,'T':0}
     for nuc in seq:
         temp_data[nuc] += 1
     return temp_data
 
-
+# gets the complementary strand
 def get_complementary_strand(seq):
     return ''.join([complementary_strand[nuc] for nuc in seq])[::-1]
 
+# transcribes the seuence given 
 def transcription(seq):
     return seq.replace('T','U')
 
