@@ -55,3 +55,30 @@ def codon_usage(seq,aminoacid):
     for seq in freqDict:
         freqDict[seq] = round(freqDict[seq] / total,2)
     return freqDict
+
+def gen_ORF(seq):
+    frames = []
+    frames.append(translate_seq(seq,0))
+    frames.append(translate_seq(seq,1))
+    frames.append(translate_seq(seq,2))
+    frames.append(translate_seq(get_complementary_strand(seq),2))
+    frames.append(translate_seq(get_complementary_strand(seq),1))
+    frames.append(translate_seq(get_complementary_strand(seq),2))
+    return frames
+
+def protein_orf(aa_seq):
+    """compute all possible proteins in an amino acid sequence and return all possible proteins"""
+    current_prot = []
+    proteins = []
+    for aa in aa_seq:
+        if aa == '_':
+            if current_prot:
+                for p in current_prot:
+                    proteins.append(p)
+                current_prot = []
+        else:
+            if aa == 'M':
+                current_prot.append("")
+                for i in range(len(current_prot)):
+                    current_prot[i] += aa
+    return proteins
